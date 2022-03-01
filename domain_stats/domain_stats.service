@@ -1,0 +1,15 @@
+[Unit]
+Description=Domain Stats Top 1M Lookup
+After=network.target
+
+[Service]
+User=api-domainstats
+Group=api-domainstats
+WorkingDirectory=/opt/soc/domain_stats
+ExecStart=/opt/soc/domain_stats/env/bin/python3 /opt/soc/domain_stats/domain_stats.py --alexa /opt/soc/domain_stats/top-1m-alexa.csv --cisco /opt/soc/domain_stats/top-1m-cisco.csv --preload 100 -d --address 127.0.0.1 --port 8080
+PIDFile=/var/run/domainstats.pid
+Restart=always
+#Environment=SOCKS=proxy.example.com:8080
+
+[Install]
+WantedBy=multi-user.target
